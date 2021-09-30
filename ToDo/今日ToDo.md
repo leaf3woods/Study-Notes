@@ -38,7 +38,7 @@
 
 #### 2021/9/30
 
-- [ ] 1.跟踪两个EdgeForTriggerService情况
+- [x] 1.跟踪两个EdgeForTriggerService情况
 - [ ] 2.完善两个readme文档并上传git
 
 ————————————————————
@@ -48,7 +48,6 @@
 - [ ] 使用gitbash进行远端及本地版本回退，上传autolink
 
 - [ ] IP， 端口，等用户设置应保存至本地，
-
 
 
 
