@@ -4,13 +4,13 @@ C# 中的委托（Delegate）类似于 C 或 C++ 中函数的指针。**委托�
 
 ##### 声明委托
 
-```
+```c#
 delegate <return type> <delegate-name> <parameter list>
 ```
 
 ##### 实例化委托
 
-```
+```c#
 public delegate void printString(string s);
 ...
 printString ps1 = new printString(WriteToScreen);
@@ -19,7 +19,7 @@ printString ps2 = new printString(WriteToFile);
 
 例子
 
-```
+```c#
 using System;
 
 delegate int NumberChanger(int n);

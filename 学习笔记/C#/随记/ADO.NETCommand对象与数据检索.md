@@ -1,4 +1,4 @@
-# [ADO.NET入门教程（六） 谈谈Command对象与数据检索](https://www.cnblogs.com/liuhaorain/archive/2012/02/27/2361825.html)
+# [ADO.NETCommand对象与数据检索](https://www.cnblogs.com/liuhaorain/archive/2012/02/27/2361825.html)
 
 ​                到目前为止，我相信大家对于ADO.NET如何与外部数据源建立连接以及如何提高连接性能等相关知识已经牢固于心了。如果您对这些知识点还不熟悉，那也没关系。你不妨抽出点时间，再回顾一下我前面写的文章，说不定你又有新的收获呢！俗话说，“前人栽树，后人乘凉”。连接对象作为ADO.NET的主力先锋，为用户与数据库交互搭建了扎实的桥梁。它的一生是平凡而又伟大的，总是尽自己最大的努力为用户搭建一条通往数据库的平坦大道。相比连接对象来说，Command对象似乎耀眼的多。Command对象在ADO.NET世界里总是忙忙碌碌，它就像一个外交官，为用户传达了所有操作数据库的信息。好了，废话不多说了，我们还是直奔主题吧！     
 
@@ -28,9 +28,7 @@
 
 （2）创建一个名为db_MyDemo的数据库。
 
-[![复制代码](https:////common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
-```
+```c#
 USE master;
 GO
 CREATE DATABASE db_MyDemo
@@ -53,13 +51,9 @@ LOG ON
 GO
 ```
 
-[![复制代码](https:////common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
 （3）创建顾客表tb_SelCustomer。
 
-[![复制代码](https:////common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
-```
+```c#
 use db_MyDemo;
 GO
 CREATE TABLE tb_SelCustomer
@@ -78,8 +72,6 @@ CREATE TABLE tb_SelCustomer
 )
 ```
 
-[![复制代码](https:////common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
  好了，恭喜你！终于把准备工作做好了。下面，让我们一起来揭开Command对象的面纱！
 
  
@@ -97,7 +89,7 @@ CREATE TABLE tb_SelCustomer
 
 不管是哪种Command对象，它都继承于DBCommand类。与DBConnection类一样，DBCommand类也是抽象基类，不能被实例化，并期待派生类（对应于特定.NET数据提供程序的Command类）来实现方法。 DBCommand类定义了完善的健全的数据库操作的基本方法和基本属性，它的结构如下：
 
-```
+```c#
 public abstract class DbCommand : Component, 
     IDbCommand, IDisposable
 ```
@@ -112,7 +104,7 @@ public abstract class DbCommand : Component,
 
  **CommandType:** 命令类型，指示或指定如何解释CommandText属性。CommandType属性的值是一个枚举类型，定义结构如下：
 
-```
+```c#
 public enum CommandType    
 {      Text = 1,    //SQL 文本命令。（默认。）          
         StoredProcedure = 4,    // 存储过程的名称。          
@@ -147,14 +139,14 @@ public enum CommandType
 
 **（1）通过构造函数。**代码如下：
 
-```
+```c#
 string strSQL = "Select * from tb_SelCustomer";
 SqlCommand cmd = new SqlCommand(strSQL, conn);
 ```
 
 **（2）通过Command对象的属性。**代码如下：
 
-```
+```c#
 SqlCommand cmd = new SqlCommand();
 cmd.Connection = conn;
 cmd.CommandText = strSQL;
@@ -172,9 +164,7 @@ cmd.CommandText = strSQL;
 
    当我们对数据表的行（记录）进行增加，删除，更新操作或者处理数据定义语句（比如用Create Table来创建表结构）时，实际上数据库是不返回数据行的，仅仅返回一个包含影响行数信息的整数。一般地，在执行非查询操作时，我们需要调用ExcuteNonQuery方法。还是，先看一个实例吧！我们在tb_SelCustomer表中插入一行记录，代码如下：
 
-[![复制代码](https:////common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
-```
+```c#
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -226,8 +216,6 @@ namespace Command
 }
 ```
 
-[![复制代码](https:////common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
  运行后，输出结果如下：
 
 ![img](https://images.cnblogs.com/cnblogs_com/liuhaorain/350185/r_command1.png)
@@ -246,7 +234,7 @@ namespace Command
 
 好吧，还是先看一个简单的例子吧。查询出tb_SelCustomer表中所有的数据。代码如下：
 
-```
+```c#
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -305,8 +293,6 @@ namespace Command2
 }
 ```
 
-[![复制代码](https:////common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
 执行上面代码后，我们可以看到在 **场景（一）** 中添加的数据。结果下图所示。
 
  ![img](https://images.cnblogs.com/cnblogs_com/liuhaorain/350185/r_command2.png)
@@ -315,11 +301,7 @@ namespace Command2
 
    上面两个场景相信大家都十分熟悉了。但是，当我们在操作数据库时仅仅只需要返回一个值（比如返回行数），那该怎么办呢？在此，我不得不承认Command对象确实人才济济，ExcuteScalar方法就是处理单个数据最优秀的人才。**ExcuteScalar返回一个System.Object类型的数据**，因此我们在获取数据时需要进行强制类型转换。当没有数据时，ExcuteScalar方法返回System.DBNull。理论在于实践，我们还是先看看一个实例吧！获取tb_SelCustomer中的行数。代码如下：
 
- 
-
-[![复制代码](https:////common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
-```
+```c#
 using System;
 using System.Collections.Generic;
 using System.Linq;

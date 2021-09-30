@@ -4,9 +4,7 @@
 
 
 
-应用层：
-
-
+###### 应用层：
 
 - HTTP（Hypertext Transfer Protocol 超文本传输协议，显示网页）
 - DNS（Domain Name System）
@@ -17,34 +15,28 @@
 
 
 
-通信层：
-
-
+###### 通信层：
 
 - TCP（Transmission Control Protocol 三次握手传输协议）
 - UDP
 
 
 
-网络层：
-
-
+###### 网络层：
 
 - IP（Internet Protocol）
 - ICMP（Internet Control Message Protocol，主要用于路由发送错误报告）
 
 
 
-链接层：
-
-
+###### 链接层：
 
 - MAC（media access control）
 
 # 文件传输协议：
 
 **FTP（File Transfer Protocol）**:是TCP/IP网络上两台计算机传送文件的协议，FTP是在TCP/IP网络和INTERNET上最早使用的协议之一，它属于网络协议组的应用层。FTP客户机可以给服务器发出命令来下载文件，上载文件，创建或改变服务器上的目录。相比于HTTP，FTP协议要复杂得多。复杂的原因，是因为FTP协议要用到两个TCP连接，一个是命令链路，用来在FTP客户端与服务器之间传递命令；另一个是数据链路，用来上传或下载数据。FTP是基于TCP协议的，因此iptables防火墙设置中只需要放开指定端口（21 + PASV端口范围）的TCP协议即可。 
- 
+
 **ftp工作模式：** 
 
 - **PORT（主动）方式**的连接过程是：客户端向服务器的FTP端口（默认是21）发送连接请求，服务器接受连接，建立一条命令链路。当需要传送数据时，客户端在命令链路上用PORT命令告诉服务器：“我打开了一个1024+的随机端口，你过来连接我”。于是服务器从20端口向客户端的1024+随机端口发送连接请求，建立一条数据链路来传送数据。
@@ -54,9 +46,9 @@
 
 
 **sftp（Secure File Transfer Protocol）：**安全文件传送协议。可以为传输文件提供一种安全的加密方法。sftp 与 ftp 有着几乎一样的语法和功能。SFTP为SSH的一部份，是一种传输文件到服务器的安全方式。在SSH软件包中，已经包含了一个叫作SFTP(Secure File Transfer Protocol)的安全文件传输子系统，SFTP本身没有单独的守护进程，它必须使用sshd守护进程（端口号默认是22）来完成相应的连接操作，所以从某种意义上来说，SFTP并不像一个服务器程序，而更像是一个客户端程序。SFTP同样是使用加密传输认证信息和传输的数据，所以，使用SFTP是非常安全的。但是，由于这种传输方式使用了加密/解密技术，所以传输效率比普通的FTP要低得多，如果您对网络安全性要求更高时，可以使用SFTP代替FTP。 
- 
+
 **SCP（Secure Copy）：**scp就是secure copy，是用来进行远程文件复制的，并且整个复制过程是加密的。数据传输使用ssh，并且和使用和ssh相同的认证方式，提供相同的安全保证。  
- 
+
 **ftp & scp/sftp比较：** 
 
 - 和ftp不同的是sftp/scp传输协议是采用加密方式来传输数据的。而ftp一般来说允许明文传输，当然现在也有带SSL的加密ftp，有些服务器软件也可以设置成“只允许加密连接”，但是毕竟不是默认设置需要我们手工调整，而且很多用户都会忽略这个设置。
@@ -112,3 +104,4 @@ ssh -V:查看当前服务器的ssh版本信息
 7、开启WinSCP，Hostname写IP，port写22，username和password自己知道的。
 
 <iframe width="1" height="1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="box-sizing: border-box;" leftmargin="0" topmargin="0" data-id="pianshen.com_728x90_responsive_DFP"></iframe>
+

@@ -1,4 +1,4 @@
-![image-20210927191522390](C:\Users\yesen\AppData\Roaming\Typora\typora-user-images\image-20210927191522390.png)
+![image-20210927191522390](HTML学习记录.assets/image-20210927191522390.png)
 
 - **<!DOCTYPE html>** 声明为 HTML5 文档
 - **<html>** 元素是 HTML 页面的根元素

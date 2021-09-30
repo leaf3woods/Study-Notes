@@ -2,7 +2,7 @@
 
 ##### 1.点击soap新建连接任务
 
-![image-20210929103144559](C:\Users\yesen\AppData\Roaming\Typora\typora-user-images\image-20210929103144559.png)
+![image-20210929103144559](使用SoapUI进行Webservice测试.assets/image-20210929103144559.png)
 
 ##### 2.输入服务运行的地址
 
@@ -10,11 +10,11 @@
 
 ​	C#示例格式："http://127.0.0.1:10010/EdgeWcf/METoPower?SingleWsdl"
 
-![image-20210929103351897](C:\Users\yesen\AppData\Roaming\Typora\typora-user-images\image-20210929103351897.png)
+![image-20210929103351897](使用SoapUI进行Webservice测试.assets/image-20210929103351897.png)
 
 ##### 3.点击运行
 
-![image-20210929103623886](C:\Users\yesen\AppData\Roaming\Typora\typora-user-images\image-20210929103623886.png)
+![image-20210929103623886](使用SoapUI进行Webservice测试.assets/image-20210929103623886.png)
 
 ##### 4.无回应，检查服务运行状态，使用services.msc开启服务
 

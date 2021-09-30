@@ -1,10 +1,10 @@
 ## ABAP 多表查询
 
-![img](C:\Users\yesen\AppData\Local\Temp\企业微信截图_16326433337117.png)
+![img](ABAP 多表查询.assets/企业微信截图_16326433337117.png)
 
-一： 数据来源
+#### 一： 数据来源
 
-lips
+###### lips
 
 项目： POSNR ：POSNR_VL
 
@@ -14,13 +14,15 @@ lips
 
 描述：ARLKTX：ARKTX
 
-lipsd
+
+
+###### lipsd
 
 交货数量：G_LFIMG ： LFIMG
 
 
 
-likp
+###### likp
 
 凭证日期： BLDAT ：BLDAT
 
@@ -30,7 +32,7 @@ likp
 
 
 
-二，多表查询两种方法            
+#### 二，多表查询两种方法            
 
 inner join(等值连接) 只返回两个表中联结字段相等的行
 left join(左联接) 返回包括左表中的所有记录和右表中联结字段相等的记录

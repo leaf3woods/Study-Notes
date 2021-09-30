@@ -1,13 +1,13 @@
 # C++命名规范
 
-![\color{red}{常见命名法：}](https://math.jianshu.com/math?formula=%5Ccolor%7Bred%7D%7B%E5%B8%B8%E8%A7%81%E5%91%BD%E5%90%8D%E6%B3%95%EF%BC%9A%7D)
+#### 常见命名
 
 **匈牙利命名法：**基本原则是：变量名＝属性＋类型＋对象描述，其中每一对象的名称都要求有明确含义，可以取对象名字全称或名字的一部分。命名要基于容易记忆容易理解的原则。保证名字的连贯性是非常重要的。
 **Camel命名法：**即骆驼式命名法，原因是采用该命名法的名称看起来就像骆驼的驼峰一样高低起伏。
 **Camel命名法有两种形式：**混合使用大小写字母和单词之间加下划线，例如runFast和run_fast都属于Camel命名法。
 **Pascal命名法：**与Camel命名法类似，不过Pascal命名法的首字母为大写字母。
 
-![\color{red}{命名通则：}](https://math.jianshu.com/math?formula=%5Ccolor%7Bred%7D%7B%E5%91%BD%E5%90%8D%E9%80%9A%E5%88%99%EF%BC%9A%7D)
+##### 命名规则
 
 - 1、在所有命名中，都应使用标准的英文单词或缩写。不得使用拼音或拼音缩写，除非该名字描述的是中文特有的内容，如半角、全角, 声母、韵母等。
 - 2、所有命名都应遵循望文知义原则，即名称应含义清晰、明确。
@@ -15,7 +15,7 @@
 - 4、所有命名都应尽量使用全称。
 - 5、如果命名使用缩写，则应该使用《通用缩写表》（见附录）中的缩写；原则上不推荐使用《通用缩写表》以外的缩写，如果使用，则必须对其进行注释和说明。
 
-![\color{red}{具体规范：}](https://math.jianshu.com/math?formula=%5Ccolor%7Bred%7D%7B%E5%85%B7%E4%BD%93%E8%A7%84%E8%8C%83%EF%BC%9A%7D)
+#### 具体规范
 
 - 1、工程名：不强制统一。
 - 2、文件名： 
@@ -34,8 +34,6 @@
 - 4、变量名： 
   - 原则上，变量名的命名遵从匈牙利记法。即：前缀 + 类型 + 变量名
 - 1）格式：
-
-
 
 ```ruby
 [m_|s_|g_] type [class name|struct name] variable name
@@ -74,8 +72,6 @@
   - 枚举名加小写前缀"enum"。
     例：
 
-
-
 ```objectivec
 typedef enum _CFILE_OPEN_MODE
 {
@@ -89,16 +85,12 @@ enumCREATE_ALWAY = 3
 
 例：
 
-
-
 ```cpp
 #define defMAXNUMBER 100
 ```
 
 - 结构名加小写前缀"tag"，之后必须以大写"C"开头。
   例：
-
-
 
 ```cpp
 typedef struct tagKPOINT
@@ -112,8 +104,6 @@ int y;
 
 例：
 
-
-
 ```cpp
 typedef union _VARIANT{
 char unichVal;
@@ -124,7 +114,7 @@ float uniftVal;
 } VARIANT;
 ```
 
-![\color{red}{C/C++源代码书写规范（试行）}](https://math.jianshu.com/math?formula=%5Ccolor%7Bred%7D%7BC%2FC%2B%2B%E6%BA%90%E4%BB%A3%E7%A0%81%E4%B9%A6%E5%86%99%E8%A7%84%E8%8C%83%EF%BC%88%E8%AF%95%E8%A1%8C%EF%BC%89%7D)
+#### C++ 书写规范
 
 - 1. 在.h/.cpp的开头应有一段格式统一的说明，内容包括：
 
@@ -180,8 +170,6 @@ else
 
 不得写做：
 
-
-
 ```bash
 if (n == -2) n = 1;
 else n = 2;
@@ -191,23 +179,17 @@ else n = 2;
 
 例：可写做：
 
-
-
 ```cpp
 int* pnsize;
 ```
 
 也可写做：
 
-
-
 ```cpp
 int *pnsize;
 ```
 
 但不得写做：
-
-
 
 ```cpp
 int * pnsize;
@@ -218,15 +200,11 @@ int * pnsize;
 
 例:
 
-
-
 ```objectivec
 BOOL KSSaveToFile(const char cszFileName[],BOOL bCanReplace /* = TRUE */);
 ```
 
 或者：
-
-
 
 ```objectivec
 BOOL KSSaveToFile(const char cszFileName[],BOOL bCanReplace // = TRUE );
@@ -239,8 +217,6 @@ BOOL KSSaveToFile(const char cszFileName[],BOOL bCanReplace // = TRUE );
   - 9.1‘{’、‘}’应独占一行。在该行内可有注释。
 
 例：正确：
-
-
 
 ```cpp
 for (i = 0; i < cbLine; i++)
@@ -258,8 +234,6 @@ for (i = 0; i < cb; i++)
 
 例：正确：
 
-
-
 ```xml
 if (i > 0)
 {<br>　　m = 1;<br>　　n++;
@@ -267,8 +241,6 @@ if (i > 0)
 ```
 
 不得写做：
-
-
 
 ```undefined
 if (i > 0) {
@@ -278,8 +250,6 @@ n++;
 ```
 
 例外：
-
-
 
 ```kotlin
 if (i == 0)
@@ -294,16 +264,12 @@ if (i == 0)
 
 例：正确：
 
-
-
 ```cpp
 int n = 0, nTemp;
 for (int i = nMinLine; i <= nMaxLine; i++)
 ```
 
 不得写做：
-
-
 
 ```cpp
 int n=0, nTemp;
@@ -314,23 +280,17 @@ for ( int i=nMinLine; i<=nMaxLine; i++ )
 
 例：正确：
 
-
-
 ```undefined
 if (-2 == n)
 ```
 
 不得写做：
 
-
-
 ```undefined
 if(-2 == n)
 ```
 
 或
-
-
 
 ```undefined
 if ( -2 == n )
@@ -340,15 +300,11 @@ if ( -2 == n )
 
 例：正确：
 
-
-
 ```bash
 printf("%d\n", nIndex);
 ```
 
 不得写做：
-
-
 
 ```bash
 printf ("%d\n", nIndex);
@@ -360,23 +316,17 @@ printf( "%d\n", nIndex );
 
 例：可写做：
 
-
-
 ```undefined
 (KSFile*)pFile;
 ```
 
 也可写做：
 
-
-
 ```undefined
 (KSFile *)pFile
 ```
 
 不得写做：
-
-
 
 ```undefined
 ( KSFile* )pFile
@@ -392,8 +342,6 @@ printf( "%d\n", nIndex );
 
 例：
 
-
-
 ```cpp
 int Power(int x)
 {
@@ -406,8 +354,6 @@ int Power(int x)
 - - 11.3 下列情况，不必缩进：switch 之后的 case、default。
 
 例：
-
-
 
 ```cpp
 switch (nID)
