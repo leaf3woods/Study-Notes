@@ -30,13 +30,13 @@
 
 ~~1.MEto服务无法在engink启动问题，此问题未解决，使用soapui测试~~
 
-2.跟踪EdgeForTriggerService情况
+~~2.跟踪EdgeForTriggerService情况~~
 
-3.继续写各服务文档,主要是MEto服务，和EdgeForTriggerService
+~~3.继续写各服务文档,主要是MEto服务，和EdgeForTriggerService~~
 
 ~~4.soapUI 简单测试手段~~
 
-5.上传git
+~~5.上传git~~
 
 ————————————————————
 

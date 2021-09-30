@@ -6,9 +6,13 @@
 
 ![img](file:///C:/Users/yesen/Documents/WXWork/1688855969240703/Cache/Image/2021-09/企业微信截图_16328177405026.png)
 
-​			其中redis 服务和eglink服务在同一设备上；设备一旦发生故障会在redis上记录错误信息，订阅故障信息后，有新数据，redis会通过onmessage 通知edglink服务，后续由EdgeForTriggerService服务去redis故障记录位置读取错误数据，json格式
+​			
 
-DealData函数
+##### 业务流程	![image-20210929194546093](C:\Users\yesen\AppData\Roaming\Typora\typora-user-images\image-20210929194546093.png)
+
+​		1.其中redis 服务和eglink服务在同一设备上；设备一旦发生故障会在redis上记录错误信息，订阅故障信息后，有新数据，redis会通过onmessage 通知edglink服务，后续由EdgeForTriggerService服务去redis故障记录位置读取错误数据，json格式
+
+​		DealData函数
 
 triggers由Where(x => x.plcName == msg.PlcName && x.tagName == msg.Tag.TagName).ToList()赋值，其数据来源服务注册目录底下的cofigFile,(path + "/EdgeForTrigger.json");
 
