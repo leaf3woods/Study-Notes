@@ -1,9 +1,5 @@
 # C#操作mysql数据库实例
 
-本文主要分享的是使用C#简单快捷的操作Mysql数据库的完整实现过程。
-
-------
-
 ## 目录
 
 
@@ -45,7 +41,7 @@
 
 创建类`MysqlConnector` 并添加引用：
 
-```
+```c#
 using MySql.Data.MySqlClient;
 ```
 

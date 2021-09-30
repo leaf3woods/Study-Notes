@@ -1,280 +1,119 @@
 # C#中的static、readonly与const的比较
 
-```csharp
  C#中有两种常量类型，分别为readonly(运行时常量)与const(编译时常量)，本文将就这两种类型的不同特性进行比较并说明各自的适用场景。
 
-工作原理
+##### 工作原理
 
-    readonly为运行时常量，程序运行时进行赋值，赋值完成后便无法更改，因此也有人称其为只读变量。
+​    readonly为运行时常量，程序运行时进行赋值，赋值完成后便无法更改，因此也有人称其为只读变量。
 
-    const为编译时常量，程序编译时将对常量值进行解析，并将所有常量引用替换为相应值。
+​    const为编译时常量，程序编译时将对常量值进行解析，并将所有常量引用替换为相应值。
+​    下面声明两个常量：
 
-
-
-    下面声明两个常量：
-
-
-
- 
-
-
-
+```c#
 public static readonly int A = 2; //A为运行时常量
-
-
-
 public const int B = 3; //B为编译时常量
-
-
+```
 
 下面的表达式：
 
-
-
- 
-
-
-
+```c#
 int C = A + B;
-
-
+```
 
 经过编译后与下面的形式等价：
 
-
-
- 
-
-
-
+```c#
 int C = A + 3;
-
-
+```
 
 可以看到，其中的const常量B被替换成字面量3，而readonly常量A则保持引用方式。
 
+##### 声明及初始化
 
+​    readonly常量只能声明为类字段，支持实例类型或静态类型，可以在声明的同时初始化或者在构造函数中进行初始化，初始化完成后便无法更改。
 
-声明及初始化
+​    const常量除了可以声明为类字段之外，还可以声明为方法中的局部常量，默认为静态类型(无需用static修饰，否则将导致编译错误)，但必须在声明的同时完成初始化。
 
+##### 数据类型支持
 
+​    由于const常量在编译时将被替换为字面量，使得其取值类型受到了一定限制。const常量只能被赋予数字(整数、浮点数)、字符串以及枚举类型。下面的代码无法通过编译：
 
-    readonly常量只能声明为类字段，支持实例类型或静态类型，可以在声明的同时初始化或者在构造函数中进行初始化，初始化完成后便无法更改。
-
-
-
-    const常量除了可以声明为类字段之外，还可以声明为方法中的局部常量，默认为静态类型(无需用static修饰，否则将导致编译错误)，但必须在声明的同时完成初始化。
-
-
-
- 
-
-
-
-数据类型支持
-
-
-
-    由于const常量在编译时将被替换为字面量，使得其取值类型受到了一定限制。const常量只能被赋予数字(整数、浮点数)、字符串以及枚举类型。下面的代码无法通过编译：
-
-
-
- 
-
-
-
+```c
 public const DateTime D = DateTime.MinValue;
-
-
+```
 
 改成readonly就可以正常编译：
 
-
-
- 
-
-
-
+```c
 public readonly DateTime D = DateTime.MinValue;
+```
 
+##### 可维护性
 
+​    readonly以引用方式进行工作，某个常量更新后，所有引用该常量的地方均能得到更新后的值。
 
-可维护性
+​    const的情况要稍稍复杂些，特别是跨程序集调用：
 
-
-
-    readonly以引用方式进行工作，某个常量更新后，所有引用该常量的地方均能得到更新后的值。
-
-
-
-    const的情况要稍稍复杂些，特别是跨程序集调用：
-
-
-
- 
-
-
-
+```c#
 public class Class1
-
-
-
 {
-
-
-
     public static readonly int A = 2; //A为运行时常量
-
-
-
     public const int B = 3; //B为编译时常量
-
-
-
 }
-
-
-
- 
-
-
 
 public class Class2
-
-
-
 {
-
-
-
     public static int C = Class1.A + Class1.B; //变量C的值为A、B之和 
-
-
-
 }
 
-
-
- 
-
-
-
 Console.WriteLine(Class2.C); //输出"5"
-
-
+```
 
 假设Class1与Class2位于两个不同的程序集，现在更改Class1中的常量值：
 
-
-
- 
-
-
-
+```c#
 public class Class1
-
-
-
 {
-
-
-
     public static readonly int A = 4; //A为运行时常量
-
-
-
     public const int B = 5; //B为编译时常量
-
-
-
 }
-
-
+```
 
  编译Class1并部署（注意：这时并没有重新编译Class2），再次查看变量C的值：
 
-
-
- 
-
-
-
+```c#
 Console.WriteLine(Class2.C); //输出"7"
-
-
+```
 
 结果可能有点出乎意料，让我们来仔细观察变量C的赋值表达式：
 
-
-
- 
-
-
-
+```c#
 public static int C = Class1.A + Class1.B;
-
-
+```
 
 编译后与下面的形式等价： 
 
-
-
- 
-
-
-
- 
-
-
-
- 
-
-
-
+```c#
 public static int C = Class1.A + 3;
-
-
-
-     因此不管常量B的值如何变，对最终结果都不会产生影响。虽说重新编译Class2即可解决这个问题，但至少让我们看到了const可能带来的维护问题。
-
-
-
- 
-
-
-
-性能比较
-
-
-
-    const直接以字面量形式参与运算，性能要略高于readonly，但对于一般应用而言，这种性能上的差别可以说是微乎其微。
-
-
-
- 
-
-
-
-适用场景
-
-
-
-    在下面两种情况下：
-
-
-
-    a.取值永久不变(比如圆周率、一天包含的小时数、地球的半径等)
-
-
-
-    b.对程序性能要求非常苛刻
-
-
-
-    可以使用const常量，除此之外的其他情况都应该优先采用readonly常量。
 ```
 
- 
+​     因此不管常量B的值如何变，对最终结果都不会产生影响。虽说重新编译Class2即可解决这个问题，但至少让我们看到了const可能带来的维护问题。
+
+##### 性能比较
+
+​    const直接以字面量形式参与运算，性能要略高于readonly，但对于一般应用而言，这种性能上的差别可以说是微乎其微。
+
+
+
+##### 适用场景
+
+​    在下面两种情况下：
+
+​    a.取值永久不变(比如圆周率、一天包含的小时数、地球的半径等)
+
+​    b.对程序性能要求非常苛刻
+
+​    可以使用const常量，除此之外的其他情况都应该优先采用readonly常量。
 
  
 
@@ -317,7 +156,7 @@ private static final修饰的成员在申明的时就被赋值，保证在构造
 private final     修饰的成员在构造中被赋值，表示它是该类全局的私有成员变量，且该类的构造需要传入他们的初始值，才能完成类的初始化。
 
 
-  
+
 
 **C# const和static readonly区别**
 
@@ -326,19 +165,60 @@ const: 用const修饰符声明的成员叫常量，是在编译期初始化并�
 
 C# const和static readonly区别示例：
 
-```
- using System;  using System.Collections.Generic;  using System.Text;     namespace Example02Lib  {  public class Class1  {  public const String strConst = "Const";  public static readonly String strStaticReadonly = "StaticReadonly";  //public const String strConst = "Const Changed";  //public static readonly String strStaticReadonly = "StaticReadonly Changed";  }  } 
+```c#
+ using System;  
+ using System.Collections.Generic;  
+ using System.Text;     
+ namespace Example02Lib  
+ {  
+ 	public class Class1  
+ 	{  
+ 		public const String strConst = "Const";  
+ 		public static readonly String strStaticReadonly = "StaticReadonly";  			//public const String strConst = "Const Changed";  
+ 		//public static readonly String strStaticReadonly = "StaticReadonly Changed";  
+ 	} 
+} 
 ```
 
 客户端代码：
 
-```
- using System;  using System.Collections.Generic;  using System.Text;  using Example02Lib;   namespace Example02  {  class Program  {  static void Main(string[] args)  {  //修改Example02中Class1的strConst初始值后，只编译Example02Lib项目  //然后到资源管理器里把新编译的Example02Lib.dll拷贝Example02.exe所在的目录，
-执行Example02.exe  //切不可在IDE里直接调试运行因为这会重新编译整个解决方案！！   //可以看到strConst的输出没有改变，而strStaticReadonly的输出已经改变  //表明Const变量是在编译期初始化并嵌入到客户端程序，而StaticReadonly是在运行时初始化的  Console.WriteLine("strConst : {0}", Class1.strConst);  Console.WriteLine("strStaticReadonly : {0}", Class1.strStaticReadonly);   Console.ReadLine();  }  }  } 
+```c#
+ using System; 
+ using System.Collections.Generic;  
+ using System.Text;  
+ using Example02Lib;
+ namespace Example02  
+ {  
+ 	class Program  
+ 	{  
+ 		static void Main(string[] args)  
+ 		{  
+            //修改Example02中Class1的strConst初始值后，只编译Example02Lib项目  
+            //然后到资源管理器里把新编译的Example02Lib.dll拷贝Example02.exe所在的目录，执行Example02.exe  
+            //切不可在IDE里直接调试运行因为这会重新编译整个解决方案！！   
+            //可以看到strConst的输出没有改变，而strStaticReadonly的输出已经改变  
+            //表明Const变量是在编译期初始化并嵌入到客户端程序，而StaticReadonly是在运行时初始化的 
+            Console.WriteLine("strConst : {0}", Class1.strConst);  							 							Console.WriteLine("strStaticReadonly : {0}", Class1.strStaticReadonly);   			
+            Console.ReadLine(); 
+ 		} 
+    }  
+} 
 ```
 
 修改后的示例：
 
-```
- using System;  using System.Collections.Generic;  using System.Text;     namespace Example02Lib  {  public class Class1  {  //public const String strConst = "Const";  //public static readonly String strStaticReadonly = "StaticReadonly";  public const String strConst = "Const Changed";  public static readonly String strStaticReadonly = "StaticReadonly Changed";  }  } 
+```c#
+ using System;  
+ using System.Collections.Generic;  
+ using System.Text;     
+ namespace Example02Lib  
+ {  
+ 	public class Class1  
+ 	{  
+        //public const String strConst = "Const";
+        //public static readonly String strStaticReadonly = "StaticReadonly";  
+        public const String strConst = "Const Changed"; 
+        public static readonly String strStaticReadonly = "StaticReadonly Changed";  
+    }  
+ } 
 ```

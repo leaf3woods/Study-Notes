@@ -1,20 +1,24 @@
-1.点击soap新建连接任务
+### 使用soapUI测试webservice接口测试
 
-![image-20210929103144559](C:\Users\yesen\AppData\Roaming\Typora\typora-user-images\image-20210929103144559.png)
+##### 1.点击soap新建连接任务
 
-2.输入服务运行的地址
+![image-20210929103144559](使用SoapUI进行Webservice测试.assets/image-20210929103144559.png)
+
+##### 2.输入服务运行的地址
+
+​	需要在服务地址后面加SingleWsdl
 
 ​	C#示例格式："http://127.0.0.1:10010/EdgeWcf/METoPower?SingleWsdl"
 
-![image-20210929103351897](C:\Users\yesen\AppData\Roaming\Typora\typora-user-images\image-20210929103351897.png)
+![image-20210929103351897](使用SoapUI进行Webservice测试.assets/image-20210929103351897.png)
 
-3.点击运行
+##### 3.点击运行
 
-![image-20210929103623886](C:\Users\yesen\AppData\Roaming\Typora\typora-user-images\image-20210929103623886.png)
+![image-20210929103623886](使用SoapUI进行Webservice测试.assets/image-20210929103623886.png)
 
-4.无回应，检查服务运行状态，使用services.msc
+##### 4.无回应，检查服务运行状态，使用services.msc开启服务
 
-5.与visual studio联调
+##### 5.与visual studio联调
 
 - 生成后台程序，在后台中开启服务可以使用bat，或者sc指令进行测试
 - 保证生成版本与代码版本一致后，选择调式->附加进程，选择目标服务器，

@@ -2,33 +2,28 @@
 
 **一、使用线程的理由**
 
-1、可以使用线程将代码同其他代码隔离，提高应用程序的可靠性。
-
-2、可以使用线程来简化编码。
-
-3、可以使用线程来实现并发执行。
+1. 可以使用线程将代码同其他代码隔离，提高应用程序的可靠性。
+2. 可以使用线程来简化编码。
+3. 可以使用线程来实现并发执行。
 
 **二、基本知识**
 
-1、进程与线程：进程作为操作系统执行程序的基本单位，拥有应用程序的资源，进程包含线程，进程的资源被线程共享，线程不拥有资源。
+1. 进程与线程：进程作为操作系统执行程序的基本单位，拥有应用程序的资源，进程包含线程，进程的资源被线程共享，线程不拥有资源。
+2. 前台线程和后台线程：通过Thread类新建线程默认为前台线程。当所有前台线程关闭时，所有的后台线程也会被直接终止，不会抛出异常。
 
-2、前台线程和后台线程：通过Thread类新建线程默认为前台线程。当所有前台线程关闭时，所有的后台线程也会被直接终止，不会抛出异常。
+3. 挂起（Suspend）和唤醒（Resume）：由于线程的执行顺序和程序的执行情况不可预知，所以使用挂起和唤醒容易发生死锁的情况，在实际应用中应该尽量少用。
 
-3、挂起（Suspend）和唤醒（Resume）：由于线程的执行顺序和程序的执行情况不可预知，所以使用挂起和唤醒容易发生死锁的情况，在实际应用中应该尽量少用。
+4. 阻塞线程：Join，阻塞调用线程，直到该线程终止。
 
-4、阻塞线程：Join，阻塞调用线程，直到该线程终止。
+5. 终止线程：Abort：抛出 ThreadAbortException 异常让线程终止，终止后的线程不可唤醒。Interrupt：抛出 ThreadInterruptException 异常让线程终止，通过捕获异常可以继续执行。
 
-5、终止线程：Abort：抛出 ThreadAbortException 异常让线程终止，终止后的线程不可唤醒。Interrupt：抛出 ThreadInterruptException 异常让线程终止，通过捕获异常可以继续执行。
-
-6、线程优先级：AboveNormal BelowNormal Highest Lowest Normal，默认为Normal。
+6. 线程优先级：AboveNormal BelowNormal Highest Lowest Normal，默认为Normal。
 
 **三、线程的使用**
 
 线程函数通过委托传递，可以不带参数，也可以带参数（只能有一个参数），可以用一个类或结构体封装参数。
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
-```
+```c#
 namespace Test
 {
     class Program
@@ -58,17 +53,13 @@ namespace Test
 }
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
 **四、线程池**
 
 由于线程的创建和销毁需要耗费一定的开销，过多的使用线程会造成内存资源的浪费，出于对性能的考虑，于是引入了线程池的概念。线程池维护一个请求队列，线程池的代码从队列提取任务，然后委派给线程池的一个线程执行，线程执行完不会被立即销毁，这样既可以在后台执行任务，又可以减少线程创建和销毁所带来的开销。
 
 线程池线程默认为后台线程（IsBackground）。
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
-```
+```c#
 namespace Test
 {
     class Program
@@ -89,17 +80,13 @@ namespace Test
 }
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
 **五、Task类**
 
 使用ThreadPool的QueueUserWorkItem()方法发起一次异步的线程执行很简单，但是该方法最大的问题是没有一个内建的机制让你知道操作什么时候完成，有没有一个内建的机制在操作完成后获得一个返回值。为此，可以使用System.Threading.Tasks中的Task类。
 
 构造一个Task<TResult>对象，并为泛型TResult参数传递一个操作的返回类型。
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
-```
+```c#
 namespace Test
 {
     class Program
@@ -124,14 +111,10 @@ namespace Test
 }
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
 一个任务完成时，自动启动一个新任务。
 一个任务完成后，它可以启动另一个任务，下面重写了前面的代码，不阻塞任何线程。
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
-```
+```c#
 namespace Test
 {
     class Program
@@ -156,15 +139,11 @@ namespace Test
 }
 ```
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
 **六、委托异步执行**
 
 委托的异步调用：BeginInvoke() 和 EndInvoke()
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
-```
+```c#
 namespace Test
 {
     public delegate string MyDelegate(object data);
@@ -194,8 +173,6 @@ namespace Test
     }
 }
 ```
-
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 **七、线程同步**
 

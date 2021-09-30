@@ -1,4 +1,4 @@
-# [ADO.NET入门教程（四） 品味Connection对象连接池](https://www.cnblogs.com/liuhaorain/archive/2012/02/15/2349886.html)
+# [ADO.NETConnection对象,连接池](https://www.cnblogs.com/liuhaorain/archive/2012/02/15/2349886.html)
 
 ​                前几篇文章，我都没有详细讲解Data Provider核心对象，因为我希望在讲解这些对象之前，让大家对一些基础的概念有很好的认识。在上一篇文章《你必须知道的ADO.NET（三） 连接字符串，你小觑了吗》中，我详细讲解了连接字符串，相信大家都和我一样意识到它的重要性了。如果说连接字符串是打开数据源大门的钥匙，那么我今天要讲解的则是如何用这把钥匙打开数据源的大门。作为Data Provider的第一核心对象，Connection对象肩负起连接数据源的重任。下面就让我们好好认识这位重量级人物吧！     
 
@@ -87,7 +87,7 @@ public abstract class DbConnection : Component,
 
 上面说了那么多理论知识，下面就讲一个连接SQL Server的实例吧！代码如下：
 
-```
+```c#
  1 using System;
  2 using System.Collections.Generic;
  3 using System.Linq;
@@ -144,7 +144,7 @@ public abstract class DbConnection : Component,
 
 我们知道连接数据库时，可能出现异常，因此需要添加异常处理。对于C#来说，典型的异常处理是添加try...catch代码块。finially是可选的。finially是指无论代码是否出现异常都会执行的代码块。而**对数据库连接资源来说，是非常宝贵的**。因此，我们应当确保打开连接后，无论是否出现异常，都应该关闭连接和释放资源。所以，我们必须在finially语句块中调用Close方法关闭数据库连接。
 
-```
+```c#
  1 SqlConnection conn = new SqlConnection(connStr);
  2 try
  3 {
@@ -172,7 +172,7 @@ public abstract class DbConnection : Component,
 
 因此，上面的语句等同于：
 
-```
+```c#
 1 using(SqlConnection conn = new SqlConnection(connStr))
 2 {
 3      ;//todo
@@ -183,9 +183,7 @@ public abstract class DbConnection : Component,
 
 ------
 
-# [.net MYSQL连接字符串参数详细解析](https://www.cnblogs.com/zhangzhiping35/p/12177864.html)             
-
-​                    
+##### [.net MYSQL连接字符串参数详细解析](https://www.cnblogs.com/zhangzhiping35/p/12177864.html)                               
 
 通常数据库连接字符串为：
 **Database=dbname;	Data Source=192.168.1.1;	Port=3306;	User Id=root;	Password=;	Charset=utf8;	reatTinyAsBoolean=false;**

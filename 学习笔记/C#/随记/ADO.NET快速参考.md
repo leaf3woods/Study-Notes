@@ -224,8 +224,6 @@ GO
 
 创建连接对象，打开数据
 
-[![复制代码](https:////common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
-
 ```c#
 using System;
 using System.Collections.Generic;
@@ -273,8 +271,6 @@ Command主要有三个方法：
 ## 4.1、ExecuteNonQuery
 
 **ExecuteNonQuery()：**执行一个SQL语句，返回受影响的行数，这个方法主要用于执行对数据库执行增加、更新、删除操作，注意查询的时候不是调用这个方法。用于完成insert，delete，update操作。
-
-[![复制代码](https:////common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ```c#
         //新增
@@ -415,8 +411,6 @@ executeScalar主要用于查询单行单列的值，如聚合函数（count,max,
 ![img](https://images2017.cnblogs.com/blog/63651/201710/63651-20171023161232144-676857705.png)
 
 示例：
-
-[![复制代码](https:////common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 ```c#
 using System;
@@ -961,7 +955,7 @@ update Emp set Name='李地明',Phone='13723887789',Height=149 where Id=100001
 
 ### 6.2.2、创建实体类
 
-```
+```c#
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -1003,7 +997,7 @@ namespace HR.Models
 
 为了避免重复的数据访问代码，这里我们封装了一个数据库访问工具类：SqlHelper
 
-```
+```c#
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -1073,14 +1067,14 @@ namespace HR.Utils
 
 增删改：
 
-```
+```c#
             int rows = SqlHelper.Execute("delete from Emp where Id=@id",new SqlParameter("id",100002));
             MessageBox.Show(rows+"");
 ```
 
 查询：
 
-```
+```c#
             SqlDataReader sdr = SqlHelper.Reader("select * from Emp where Id=@id",new SqlParameter("id",100003));
             if (sdr.Read())
             {
@@ -1093,7 +1087,7 @@ namespace HR.Utils
 
 示例代码：
 
-```
+```c#
         #region 绑定员工信息到网格
         public void BindData()
         {
@@ -1126,15 +1120,15 @@ namespace HR.Utils
 
 按钮事件：
 
-```
-            FormAdd add = new FormAdd();
-            add.ShowDialog();
-            BindData();
+```c#
+FormAdd add = new FormAdd();
+add.ShowDialog();
+BindData();
 ```
 
 新增窗口：
 
-```
+```c#
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -1178,7 +1172,7 @@ namespace HR
 
 示例代码：
 
-```
+```c#
         #region 删除
         private void btnDelete_Click(object sender, EventArgs e)
         {
@@ -1200,7 +1194,7 @@ namespace HR
 
 按钮事件：
 
-```
+```c#
             //取得索引
             int index=dgvEmp.SelectedRows[0].Index;
             FormEdit edit = new FormEdit();
@@ -1211,7 +1205,7 @@ namespace HR
 
 窗体代码：
 
-```
+```c#
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -1270,7 +1264,7 @@ namespace HR
 
 按钮：
 
-```
+```c#
         #region 查询
         private void btnQuery_Click(object sender, EventArgs e)
         {
@@ -1281,7 +1275,7 @@ namespace HR
 
 BindData()方法
 
-```
+```c#
         #region 绑定员工信息到网格
         public void BindData()
         {
@@ -1316,7 +1310,7 @@ FormMain.cs
 
 ![img](https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif)![img](https://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif)
 
-```
+```c#
 using HR.Utils;
 using System.Data.SqlClient;
 
@@ -1361,7 +1355,7 @@ FormEmp.cs
 
 ![img](https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif)![img](https://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif)
 
-```
+```c#
 using HR.Models;
 using HR.Utils;
 using System;
@@ -1454,7 +1448,7 @@ FormAdd.cs
 
 ![img](https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif)![img](https://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif)
 
-```
+```c#
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -1496,7 +1490,7 @@ FormEdit.cs
 
 ![img](https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif)![img](https://images.cnblogs.com/OutliningIndicators/ExpandedBlockStart.gif)
 
-```
+```c#
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

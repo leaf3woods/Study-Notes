@@ -1,6 +1,6 @@
 # [Socket 之 c#实现Socket网络编程](https://www.cnblogs.com/xinaixia/p/5460845.html)
 
-**一、命名空间：**
+#### **一、命名空间：**
 
 　　在网络环境下，最有用的两个命名空间是System.Net和 System.Net.Sockets。
 
@@ -10,7 +10,7 @@
 
  
 
-**二、Socket对象创建：**
+#### **二、Socket对象创建：**
 
 　　针对Socket编程，.NET 框架的 Socket 类是 Winsock32 API 提供的套接字服务的托管代码版本。Socket可以象流Stream一样被视为一个数据通道，这个通道架设在应用程序端（客户端）和远程服务器端之间，而后，数据的读取（接收）和写入（发送）均针对这个通道来进行。
 
@@ -36,7 +36,7 @@
 
 　　
 
-**三、Socket操作流程：**
+#### **三、Socket操作流程：**
 
 　　1、一旦创建 Socket，在客户端，将可以通过Connect方法连接到指定的服务器。
 
@@ -58,7 +58,7 @@
 
  
 
-**四、终结点：**
+#### **四、终结点：**
 
 　　在Internet中，TCP/IP 使用套接字(一个网络地址和一个服务端口号)来唯一标识设备。网络地址(IP)标识网络上的特定设备；端口号(Port)标识要连接到的该设备上的特定服务。网络地址和服务端口的组合称为终结点，在 .NET 框架中正是由 EndPoint 类表示这个终结点，它提供表示网络资源或服务的抽象，用以标志网络地址等信息。
 
@@ -66,25 +66,30 @@
 
  
 
-**五、IP地址获取方式:**
+#### **五、IP地址获取方式:**
 
 　　用到IPEndPoint类的时候就不可避免地涉及到计算机IP地址，System.Net命名空间中有两种类可以得到IP地址实例： 
 
 　　IPAddress类： 在同一局域网中采用的获取方式。 IPAddress 类包含计算机在 IP 网络上的地址。其Parse方法可将 IP 地址字符串转换为 IPAddress 实例。下面的语句创建一个 IPAddress 实例： 
 
-　　IPAddress myIP = IPAddress.Parse("192.168.0.1"); 
+```
+	IPAddress myIP = IPAddress.Parse("192.168.0.1"); 
+```
 
 　　Dns 类： 在互联网中采用的获取方式。 向使用 TCP/IP Internet 服务的应用程序提供域名服务。其Resolve 方法查询 DNS 服务器以将用户友好的域名（如"host.mydomain.com"）映射到数字形式的 Internet 地址（如 192.168.0.1）。
 
 　　Resolve方法 返回一个 IPHostEnty 实例，该实例包含所请求名称的地址和别名的列表。大多数情况下，可以使用 AddressList 数组中返回的第一个地址。下面的代码获取一个 IPAddress 实例，该实例包含服务器 host.mydomain.com 的 IP 地址。 
 
-　　IPHostEntry ipHostInfo = Dns.Resolve("host.mydomain.com "); 
-
-　　IPAddress ipAddress = ipHostInfo.AddressList[0]; 
+```
+	IPHostEntry ipHostInfo = Dns.Resolve("host.mydomain.com "); 
+	IPAddress ipAddress = ipHostInfo.AddressList[0]; 
+```
 
 　　你也可以使用GetHostName方法得到IPHostEntry实例： 
 
-　　IPHosntEntry hostInfo=Dns.GetHostByName("host.mydomain.com ") 
+```
+　  IPHosntEntry hostInfo=Dns.GetHostByName("host.mydomain.com ") ;
+```
 
 　　在使用以上方法时，你将可能需要处理以下几种异常： 
 
@@ -100,7 +105,7 @@
 
 　　套接字编程原理：延续文件作用思想，打开-读写-关闭的模式。
 
-　　C/S编程模式如下：
+##### 　　C/S编程模式如下：
 
 　　（1）服务器端：
 
